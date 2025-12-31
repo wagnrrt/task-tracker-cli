@@ -1,0 +1,20 @@
+{
+  "name": "task-tracker-cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "task-tracker": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "nanoid": "^5.1.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "typescript": "^5.9.3"
+  }
+}
