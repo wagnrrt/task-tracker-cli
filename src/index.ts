@@ -152,6 +152,58 @@ function listInProgressTask() {
   );
 }
 
+function markInProgressTask(id: string) {
+  const tasks: Task[] = JSON.parse(readFileSync(filePath, "utf-8"));
+
+  let found = false;
+
+  const updateTask = tasks.map((task) => {
+    if (task.id === id) {
+      found = true;
+      return {
+        ...task,
+        stats: Stats.inProgress,
+        updatedAt: new Date().toDateString(),
+      };
+    }
+    return task;
+  });
+
+  if (!found) {
+    console.log("Task not found");
+    return;
+  }
+
+  writeFileSync(filePath, JSON.stringify(updateTask, null, 2));
+  console.log("Task updated successfully");
+}
+
+function markDoneTask(id: string) {
+  const tasks: Task[] = JSON.parse(readFileSync(filePath, "utf-8"));
+
+  let found = false;
+
+  const updateTask = tasks.map((task) => {
+    if (task.id === id) {
+      found = true;
+      return {
+        ...task,
+        stats: Stats.done,
+        updatedAt: new Date().toDateString(),
+      };
+    }
+    return task;
+  });
+
+  if (!found) {
+    console.log("Task not found");
+    return;
+  }
+
+  writeFileSync(filePath, JSON.stringify(updateTask, null, 2));
+  console.log("Task updated successfully");
+}
+
 const command = process.argv[2] ?? "";
 const argument = process.argv[3] ?? "";
 const argument2 = process.argv[4] ?? "";
@@ -182,7 +234,9 @@ switch (command) {
     }
     break;
   case "mark-in-progress":
+    markInProgressTask(argument);
     break;
   case "mark-done":
+    markDoneTask(argument);
     break;
 }
